@@ -1,12 +1,15 @@
+// Variables a utilizar
 let pagina = 1;
 let peliculas = "";
 let ultimaPelicula;
+const Carrito = [];
+
+// Elementos/etiquetas del dom a utilizar en el proyecto
 const carritoTemplate = document.querySelector("#template");
 const templateFooter = document.querySelector("#templateFooter");
 const carritoContenedor = document.querySelector("#carritoContenedor");
 const contenedorFooter = document.querySelector("#footer");
 const fragment = document.createDocumentFragment();
-
 // Cards peliculas
 const contenedorCards = document.getElementById("cards-dinamicas");
 const cardsTemplate = document.getElementById("template-cards");
@@ -31,7 +34,6 @@ const cargarPeliculas = async () => {
     const respuesta = await fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
     );
-
     // Si la respuesta es correcta
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
@@ -44,6 +46,10 @@ const cargarPeliculas = async () => {
         ).src = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
         clone.querySelector(".titulo").textContent = item.title;
         clone.querySelector(".p").textContent = `Precio: $${precio}`;
+
+        clone.querySelector(".btn-primary").dataset.precio = precio;
+        clone.querySelector(".btn-primary").dataset.name = item.title;
+        clone.querySelector(".btn-primary").dataset.id = item.id;
         fragment.appendChild(clone);
       });
       contenedorCards.appendChild(fragment);
@@ -65,7 +71,6 @@ const cargarPeliculas = async () => {
 };
 cargarPeliculas();
 
-
 // PAGINA DE CARRITO
 document.addEventListener("click", (e) => {
   if (e.target.matches(".btn-primary")) {
@@ -73,45 +78,30 @@ document.addEventListener("click", (e) => {
   }
 });
 
-const Carrito = [];
-const agregarPeliculaCarrito = async (e) => {
-	try {
-		const respuesta = await fetch(
-			`https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
-		);
-		const datos = await respuesta.json();
+const agregarPeliculaCarrito =  (e) => {
+  const pelicula = {
+    id: e.target.dataset.id,
+    name: e.target.dataset.name,
+    cantidad: 1,
+    precio: parseInt(e.target.dataset.precio),
+  };
 
-		datos.results.forEach((peliculas) => {
-			const pelicula = {
-				id: peliculas.id,
-				name: peliculas.title,
-				cantidad: 1,
-				precio: parseInt(e.target.dataset.precio),
-			};
-
-			const posicion = Carrito.findIndex((item) => item.id === pelicula.id);
-			if (posicion === -1) {
-				Carrito.push(pelicula);
-			} else {
-				Carrito[posicion].cantidad++;
-			}
-		});
-
-		mostrarCarrito();
-	} catch (error) {
-		console.error("Error al agregar película al carrito:", error);
-	}
+  const posicion = Carrito.findIndex((item) => item.id === pelicula.id);
+  posicion === -1? Carrito.push(pelicula) :Carrito[posicion].cantidad++; 
+  mostrarCarrito();
 };
 
 const mostrarCarrito = () => {
-	carritoContenedor.textContent = "";
-	Carrito.forEach((item) => {
-		const clone = carritoTemplate.content.cloneNode(true);
-		clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
-		clone.querySelector(".lead").textContent = item.name;
-		clone.querySelector(".lead span").textContent = item.precio;
-	
-		fragment.appendChild(clone);
-		});
+  carritoContenedor.textContent = "";
+  Carrito.forEach((item) => {
+    const clone = carritoTemplate.content.cloneNode(true);
+    clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
+    clone.querySelector(".lead").textContent = item.name;
+    clone.querySelector(".lead span").textContent = item.precio;
+
+    fragment.appendChild(clone);
+  });
   carritoContenedor.appendChild(fragment);
 };
+
+
