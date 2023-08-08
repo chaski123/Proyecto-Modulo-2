@@ -35,6 +35,7 @@ const cargarPeliculas = async () => {
     // Si la respuesta es correcta
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
+	  console.log(datos.results)
       datos.results.forEach((item) => {
         const max = 1000;
         let precio = Math.floor(Math.random() * max);
@@ -74,33 +75,36 @@ document.addEventListener("click", (e) => {
 });
 
 const Carrito = [];
-const agregarPeliculaCarrito = (e) => {
-  pelicula = {
-    cantidad: 1,
-    precio: parseInt(e.target.dataset.precio),
-  };
-  const posicion = Carrito.findIndex((item) => {
-    item.id === peliculas.id;
-  });
-  posicion === -1 ? Carrito.push(pelicula) : Carrito[posicion].cantidad++;
-  console.log(Carrito)
-  mostrarCarrito();
-};
-
-const mostrarCarrito = async () => {
-	carritoContenedor.textContent = "";
+const agregarPeliculaCarrito = async (e) => {
 	const respuesta = await fetch(
 		`https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`)
 		const datos = await respuesta.json();
-		datos.results.forEach((pelicula)=>{
-			Carrito.forEach((item) => {
-				const clone = carritoTemplate.content.cloneNode(true);
-				clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
-				clone.querySelector(".lead").textContent = pelicula.title;
-				clone.querySelector(".lead span").textContent = item.precio;
-			
-				fragment.appendChild(clone);
-			  });
-		})
+	datos.results.forEach((peliculas)=>{
+	pelicula = {
+		id: peliculas.id,
+		name: peliculas.title,
+		cantidad: 1,
+		precio: parseInt(e.target.dataset.precio),
+	  };
+})
+  
+  const posicion = Carrito.findIndex((item) => {
+    item.id === pelicula.id;
+  });
+  posicion === -1 ? Carrito.push(pelicula) : Carrito[posicion].cantidad++;
+
+  mostrarCarrito();
+};
+
+const mostrarCarrito = () => {
+	carritoContenedor.textContent = "";
+	Carrito.forEach((item) => {
+		const clone = carritoTemplate.content.cloneNode(true);
+		clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
+		clone.querySelector(".lead").textContent = item.name;
+		clone.querySelector(".lead span").textContent = item.precio;
+	
+		fragment.appendChild(clone);
+		});
   carritoContenedor.appendChild(fragment);
 };
