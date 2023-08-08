@@ -35,7 +35,6 @@ const cargarPeliculas = async () => {
     // Si la respuesta es correcta
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
-	  console.log(datos.results)
       datos.results.forEach((item) => {
         const max = 1000;
         let precio = Math.floor(Math.random() * max);
@@ -76,24 +75,32 @@ document.addEventListener("click", (e) => {
 
 const Carrito = [];
 const agregarPeliculaCarrito = async (e) => {
-	const respuesta = await fetch(
-		`https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`)
+	try {
+		const respuesta = await fetch(
+			`https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
+		);
 		const datos = await respuesta.json();
-	datos.results.forEach((peliculas)=>{
-	pelicula = {
-		id: peliculas.id,
-		name: peliculas.title,
-		cantidad: 1,
-		precio: parseInt(e.target.dataset.precio),
-	  };
-})
-  
-  const posicion = Carrito.findIndex((item) => {
-    item.id === pelicula.id;
-  });
-  posicion === -1 ? Carrito.push(pelicula) : Carrito[posicion].cantidad++;
 
-  mostrarCarrito();
+		datos.results.forEach((peliculas) => {
+			const pelicula = {
+				id: peliculas.id,
+				name: peliculas.title,
+				cantidad: 1,
+				precio: parseInt(e.target.dataset.precio),
+			};
+
+			const posicion = Carrito.findIndex((item) => item.id === pelicula.id);
+			if (posicion === -1) {
+				Carrito.push(pelicula);
+			} else {
+				Carrito[posicion].cantidad++;
+			}
+		});
+
+		mostrarCarrito();
+	} catch (error) {
+		console.error("Error al agregar película al carrito:", error);
+	}
 };
 
 const mostrarCarrito = () => {
