@@ -33,6 +33,7 @@
         <a class="navbar-brand text-white">Movies4Us</a>
         <form class="d-flex" role="search">
           <input
+            id="input-search"
             class="form-control me-2"
             type="search"
             placeholder="Search"
@@ -42,8 +43,20 @@
         </form>
       </div>
     </nav>
-    <div id="cards-dinamicas" class="contenedor"></div>
 
+    <!-- cargando animacion -->
+    <div class="d-flex align-items-center text-primary m-4 d-none" id="spinner">
+      <strong>Loading...</strong>
+      <div
+        class="spinner-border ms-auto"
+        role="status"
+        aria-hidden="true"
+      ></div>
+    </div>
+    
+    <div id="cards-dinamicas" class="contenedor">
+      <!-- contenedor peliculas -->
+    </div>
     <!-- cards Peliculas -->
     <template id="template-cards">
       <div class="card text-bg-dark pelicula mt-5">
@@ -61,21 +74,19 @@
       </div>
     </template>
 
-    <!-- Carrito contenedor -->
-    <div id="carritoContenedor" style="margin: 100px"></div>
-    <!-- Contenedor Footer Total-Carrito -->
-    <footer id="footer" class="container mt-3 d-block"></footer>
-
-    <!-- Template Peliculas- carrito -->
-    <template id="template" >
+    <div id="carritoContenedor" style="margin: 100px">
+      <!-- Carrito contenedor -->
+    </div>
+     <!-- Template Peliculas-carrito -->
+     <template id="template" >
       <div class="container m-auto">
         <li class="list-group-item text-uppercase bg-primary text-white">
-          <span class="badge bg-dark rounded-pill align-middle">14</span>
-          <span class="lead align-middle">Fruta</span>
+          <span class="badge bg-dark rounded-pill align-middle">10</span>
+          <span class="lead align-middle">Pelicula</span>
         </li>
         <li class="list-group-item bg-white text-dark d-flex justify-content-between align-items-center mb-4 p-2">
           <div>
-            <p class="lead mb-0">Total: $<span>200</span></p>
+            <p class="lead mb-0">Total: $<span>600</span></p>
           </div>
           <div>
             <button class="btn btn-sm btn-success" data-id="fruta">
@@ -86,6 +97,10 @@
         </li>
       </div>
     </template>
+    
+    <footer id="footer" class="container mt-3 d-block">
+      <!-- Contenedor Footer Total-Carrito -->
+    </footer>
 
     <!-- Template Footer -->
     <template id="templateFooter">
