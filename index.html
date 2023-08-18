@@ -33,13 +33,15 @@
         <a class="navbar-brand text-white">Movies4Us</a>
         <form class="d-flex" role="search">
           <input
-            id="input-search"
+            id="buscador"
             class="form-control me-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-success" id="btnBuscar" type="submit">
+            Search
+          </button>
         </form>
       </div>
     </nav>
@@ -53,7 +55,7 @@
         aria-hidden="true"
       ></div>
     </div>
-    
+
     <div id="cards-dinamicas" class="contenedor">
       <!-- contenedor peliculas -->
     </div>
@@ -63,12 +65,7 @@
         <img class="poster" src="..." />
         <h3 class="titulo"></h3>
         <p class="p"></p>
-        <button
-          class="btn btn-primary"
-          data-precio=""
-          data-name=""
-          data-id=""
-        >
+        <button class="btn btn-primary" data-precio="" data-name="" data-id="">
           Comprar
         </button>
       </div>
@@ -77,14 +74,16 @@
     <div id="carritoContenedor" style="margin: 100px">
       <!-- Carrito contenedor -->
     </div>
-     <!-- Template Peliculas-carrito -->
-     <template id="template" >
+    <!-- Template Peliculas-carrito -->
+    <template id="template">
       <div class="container m-auto">
         <li class="list-group-item text-uppercase bg-primary text-white">
           <span class="badge bg-dark rounded-pill align-middle">10</span>
           <span class="lead align-middle">Pelicula</span>
         </li>
-        <li class="list-group-item bg-white text-dark d-flex justify-content-between align-items-center mb-4 p-2">
+        <li
+          class="list-group-item bg-white text-dark d-flex justify-content-between align-items-center mb-4 p-2"
+        >
           <div>
             <p class="lead mb-0">Total: $<span>600</span></p>
           </div>
@@ -92,12 +91,14 @@
             <button class="btn btn-sm btn-success" data-id="fruta">
               Agregar
             </button>
-            <button class="btn btn-sm btn-danger" data-id="fruta">Quitar</button>
+            <button class="btn btn-sm btn-danger" data-id="fruta">
+              Quitar
+            </button>
           </div>
         </li>
       </div>
     </template>
-    
+
     <footer id="footer" class="container mt-3 d-block">
       <!-- Contenedor Footer Total-Carrito -->
     </footer>
