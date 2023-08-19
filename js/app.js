@@ -3,10 +3,13 @@ let pagina = 1;
 let peliculas = "";
 let ultimaPelicula;
 let Carrito = [];
+
 // Elementos/etiquetas del dom a utilizar en el proyecto
-const spinner = document.getElementById('spinner')
+const spinner = document.getElementById("spinner");
 const carritoTemplate = document.querySelector("#template");
 const templateFooter = document.querySelector("#templateFooter");
+const templateRecibo = document.querySelector("#templateRecibo");
+const contenedorRecibo = document.querySelector("#recibo");
 const carritoContenedor = document.querySelector("#carritoContenedor");
 const contenedorFooter = document.querySelector("#footer");
 const fragment = document.createDocumentFragment();
@@ -30,16 +33,16 @@ let observador = new IntersectionObserver(
 );
 
 // Funcion spinner
-const loading= (estado) =>{
-  if(estado){
-    spinner.classList.remove('d-none')
-  }else{
-    spinner.classList.add('d-none')
+const loading = (estado) => {
+  if (estado) {
+    spinner.classList.remove("d-none");
+  } else {
+    spinner.classList.add("d-none");
   }
-}
+};
 const cargarPeliculas = async () => {
   try {
-    loading(true)
+    loading(true);
     const respuesta = await fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
     );
@@ -74,8 +77,8 @@ const cargarPeliculas = async () => {
     }
   } catch (error) {
     console.log(error);
-  }finally{
-    loading(false)
+  } finally {
+    loading(false);
   }
 };
 cargarPeliculas();
@@ -88,7 +91,8 @@ const agregarPeliculaCarrito = (e) => {
     precio: parseInt(e.target.dataset.precio),
   };
   const posicion = Carrito.findIndex((item) => item.id === pelicula.id);
-  posicion === -1? Carrito.push(pelicula) :Carrito[posicion].cantidad++; 
+  posicion === -1 ? Carrito.push(pelicula) : Carrito[posicion].cantidad++;
+
   mostrarCarrito();
 };
 
@@ -100,52 +104,79 @@ const mostrarCarrito = () => {
     clone.querySelector(".lead").textContent = item.name;
     clone.querySelector(".lead span").textContent = item.precio * item.cantidad;
 
-    clone.querySelector(".btn-success").dataset.id = item.id
-    clone.querySelector(".btn-danger").dataset.id = item.id
+    clone.querySelector(".btn-success").dataset.id = item.id;
+    clone.querySelector(".btn-danger").dataset.id = item.id;
     fragment.appendChild(clone);
   });
   carritoContenedor.appendChild(fragment);
 
-  if(Carrito.length >= 1){
-    contenedorFooter.classList.remove('d-none')
-    mostrarFooter()
-  }else{
-    contenedorFooter.classList.add('d-none')
+  if (Carrito.length >= 1) {
+    contenedorFooter.classList.remove("d-none");
+    mostrarFooter();
+  } else {
+    contenedorFooter.classList.add("d-none");
   }
 };
 
-const mostrarFooter = () =>{
-  contenedorFooter.textContent = ''
-  const total = Carrito.reduce((acc, current)=>{
-    return acc + current.cantidad * current.precio
-  }, 0)
+const mostrarFooter = () => {
+  contenedorFooter.textContent = "";
+  const total = Carrito.reduce((acc, current) => {
+    return acc + current.cantidad * current.precio;
+  }, 0);
 
   const clone = templateFooter.content.cloneNode(true);
-  clone.querySelector('.lead span').textContent = total
-  contenedorFooter.appendChild(clone)
-}
+  clone.querySelector(".lead span").textContent = total;
+  clone.querySelector(".btn-outline-primary");
+  contenedorFooter.appendChild(clone);
+};
 
-const quitarBtn = (e) =>{
-  Carrito = Carrito.filter((item)=>{
-    if(e.target.dataset.id === item.id){
-        if(item.cantidad > 0){
-            item.cantidad--
-        }if(item.cantidad === 0)return 
-        return item
-    }else{
-        return item
+const quitarBtn = (e) => {
+  Carrito = Carrito.filter((item) => {
+    if (e.target.dataset.id === item.id) {
+      if (item.cantidad > 0) {
+        item.cantidad--;
+      }
+      if (item.cantidad === 0) return;
+      return item;
+    } else {
+      return item;
     }
-})
-mostrarCarrito()
-} 
+  });
+  mostrarCarrito();
+};
 
-const agregarBtn = (e) =>{
-  Carrito.map((item)=>{
-    e.target.dataset.id === item.id ? item.cantidad++ : item
+const agregarBtn = (e) => {
+  Carrito.map((item) => {
+    e.target.dataset.id === item.id ? item.cantidad++ : item;
+  });
+
+  mostrarCarrito();
+};
+
+const pagarPelicula = (e) => {
+  let today = new Date();
+ 
+  // obtener la fecha de hoy en formato `MM/DD/YYYY`
+  let now = today.toLocaleDateString('es-AR');
+  contenedorRecibo.textContent = "";
+  const total = Carrito.reduce((acc, current) => {
+    return acc + current.cantidad * current.precio;
+  }, 0);
+
+  const cantidad = Carrito.reduce((acc, current)=>{
+    return acc + current.cantidad
+  }, 0)
+
+  const clone = templateRecibo.content.cloneNode(true);
+  clone.querySelector('#purchasePrice').textContent = total
+  clone.querySelector('#purchaseDate').textContent = now
+  Carrito.forEach((item)=>{
+    clone.querySelector('#purchaseItem').textContent = item.name
   })
+  clone.querySelector('#purchaseQuantity').textContent = cantidad
+  contenedorRecibo.appendChild(clone)
 
-  mostrarCarrito()
-}
+};
 
 //Delegacion de Eventos
 document.addEventListener("click", (e) => {
@@ -153,14 +184,15 @@ document.addEventListener("click", (e) => {
     agregarPeliculaCarrito(e);
   }
 
-  if(e.target.matches(".btn-danger")){
-    quitarBtn(e)
+  if (e.target.matches(".btn-danger")) {
+    quitarBtn(e);
   }
 
-  if(e.target.matches(".btn-success")){
-    agregarBtn(e)
+  if (e.target.matches(".btn-success")) {
+    agregarBtn(e);
   }
 
-  
+  if (e.target.matches(".btn-outline-primary")) {
+    pagarPelicula(e);
+  }
 });
-

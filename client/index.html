@@ -24,7 +24,6 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <link rel="stylesheet" href="/estilos.css" />
     <title>Movies4Us</title>
   </head>
@@ -111,12 +110,28 @@
           class="card-body d-flex justify-content-between align-items-center"
         >
           <p class="lead mb-0">TOTAL: $<span>1500</span></p>
-          <button id="checkout-btn" class="btn btn-outline-primary">Finalizar Compra</button>
+          <button id="checkout-btn" class="btn btn-outline-primary" data-id="">Finalizar Compra</button>
         </div>
       </div>
     </template>
+    <template id="templateRecibo">
+      <div class="card m-4 p-3 receipt">
+        <h1>Recibo de Compra</h1>
+        <div class="movie-title" id="movieTitle"></div>
+        <div class="purchase-details" id="purchaseDetails">
+            <p>Fecha: <span id="purchaseDate"></span></p>
+            <p>Titulo: <span id="purchaseItem"></span></p>
+            <p>Precio: $<span id="purchasePrice"></span></p>
+            <p>Cantidad: <span id="purchaseQuantity"></span></p>
+        </div>
+        <hr>
+        <p>¡Gracias por tu compra en línea!</p>
+      </div>
+    </template>
 
-    <div id="button-checkout"></div>
+    <div id="recibo">
+      <!-- Contenedor-recibos -->
+    </div>
 
     <footer class="bg-dark text-center text-white">
       <!-- Grid container -->
@@ -171,7 +186,8 @@
       </div>
       <!-- Copyright -->
     </footer>
-    <script src="index.js"></script>
+
     <script src="../js/app.js"></script>
+    <script src="../js/checkOut.js"></script>
   </body>
 </html>
