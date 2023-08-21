@@ -59,6 +59,7 @@ const cargarPeliculas = async () => {
       clone.querySelector(".p").textContent = `Precio: $${precio}`;
 
       clone.querySelector(".btn-primary").dataset.precio = precio;
+      clone.querySelector(".btn-primary").dataset.img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
       clone.querySelector(".btn-primary").dataset.name = item.title;
       clone.querySelector(".btn-primary").dataset.id = item.id;
       fragment.appendChild(clone);
@@ -87,6 +88,7 @@ const agregarPeliculaCarrito = (e) => {
   const pelicula = {
     id: e.target.dataset.id,
     name: e.target.dataset.name,
+    img: e.target.dataset.img,
     cantidad: 1,
     precio: parseInt(e.target.dataset.precio),
   };
@@ -103,6 +105,7 @@ const mostrarCarrito = () => {
     clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
     clone.querySelector(".lead").textContent = item.name;
     clone.querySelector(".lead span").textContent = item.precio * item.cantidad;
+    clone.querySelector(".poster").src = item.img
 
     clone.querySelector(".btn-success").dataset.id = item.id;
     clone.querySelector(".btn-danger").dataset.id = item.id;
@@ -153,7 +156,7 @@ const agregarBtn = (e) => {
   mostrarCarrito();
 };
 
-const pagarPelicula = (e) => {
+const pagarPelicula = () => {
   let today = new Date();
  
   // obtener la fecha de hoy en formato `MM/DD/YYYY`
@@ -170,12 +173,14 @@ const pagarPelicula = (e) => {
   const clone = templateRecibo.content.cloneNode(true);
   clone.querySelector('#purchasePrice').textContent = total
   clone.querySelector('#purchaseDate').textContent = now
+  const itemContainer = clone.querySelector('#purchaseItems');
   Carrito.forEach((item)=>{
-    clone.querySelector('#purchaseItem').textContent = item.name
-  })
+    const listItem = document.createElement('li');
+    listItem.textContent = item.name;
+    itemContainer.appendChild(listItem);
+  });
   clone.querySelector('#purchaseQuantity').textContent = cantidad
   contenedorRecibo.appendChild(clone)
-
 };
 
 //Delegacion de Eventos
@@ -193,6 +198,6 @@ document.addEventListener("click", (e) => {
   }
 
   if (e.target.matches(".btn-outline-primary")) {
-    pagarPelicula(e);
+    pagarPelicula();
   }
 });

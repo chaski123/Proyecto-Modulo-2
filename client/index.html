@@ -31,18 +31,6 @@
     <nav class="navbar bg-dark fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand text-white">Movies4Us</a>
-        <form class="d-flex" role="search">
-          <input
-            id="buscador"
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" id="btnBuscar" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
 
@@ -65,18 +53,19 @@
         <img class="poster" src="..." />
         <h3 class="titulo"></h3>
         <p class="p"></p>
-        <button class="btn btn-primary" data-precio="" data-name="" data-id="">
+        <button class="btn btn-primary" data-precio="" data-name="" data-id="" data-img="">
           Comprar
         </button>
       </div>
     </template>
 
-    <div id="carritoContenedor" style="margin: 100px">
+    <div id="carritoContenedor" class="col-md-9" style="margin: auto;">
       <!-- Carrito contenedor -->
     </div>
+
     <!-- Template Peliculas-carrito -->
     <template id="template">
-      <div class="container m-auto">
+      <div class="container m-auto p-2">
         <li class="list-group-item text-uppercase bg-primary text-white">
           <span id="quantity" class="badge bg-dark rounded-pill align-middle">10</span>
           <span id="product-description" class="lead align-middle">Pelicula</span>
@@ -84,14 +73,15 @@
         <li
           class="list-group-item bg-white text-dark d-flex justify-content-between align-items-center mb-4 p-2"
         >
+        <img class="poster" src="..." /> 
           <div>
-            <p id="unit-price" class="lead mb-0">Total: $<span>600</span></p>
+            <p id="unit-price" class="lead mb-0" style="margin-right: 550px;"> Precio: $<span>600</span></p>
           </div>
           <div>
-            <button class="btn btn-sm btn-success" data-id="fruta">
+            <button class="btn btn-sm btn-success" data-id="pelicula">
               Agregar
             </button>
-            <button class="btn btn-sm btn-danger" data-id="fruta">
+            <button class="btn btn-sm btn-danger" data-id="pelicula">
               Quitar
             </button>
           </div>
@@ -99,7 +89,7 @@
       </div>
     </template>
 
-    <footer id="footer" class="container mt-3 d-block">
+    <footer id="footer" class="container mt-3 d-block col-md-9" style="margin: auto;">
       <!-- Contenedor Footer Total-Carrito -->
     </footer>
 
@@ -114,13 +104,18 @@
         </div>
       </div>
     </template>
+
+    <!-- Template recibo -->
     <template id="templateRecibo">
-      <div class="card m-4 p-3 receipt">
-        <h1>Recibo de Compra</h1>
+      <div class="receipt card text-bg-dark m-4 p-3">
+        <h1 class="card-title">Recibo de Compra</h1>
         <div class="movie-title" id="movieTitle"></div>
         <div class="purchase-details" id="purchaseDetails">
             <p>Fecha: <span id="purchaseDate"></span></p>
-            <p>Titulo: <span id="purchaseItem"></span></p>
+            <div id="purchaseItems">
+              <h3>Titulos</h3>
+            </div>
+            <br>
             <p>Precio: $<span id="purchasePrice"></span></p>
             <p>Cantidad: <span id="purchaseQuantity"></span></p>
         </div>
@@ -130,7 +125,7 @@
     </template>
 
     <div id="recibo">
-      <!-- Contenedor-recibos -->
+      <!-- Contenedor-recibo -->
     </div>
 
     <footer class="bg-dark text-center text-white">
@@ -188,6 +183,5 @@
     </footer>
 
     <script src="../js/app.js"></script>
-    <script src="../js/checkOut.js"></script>
   </body>
 </html>

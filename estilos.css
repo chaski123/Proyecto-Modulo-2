@@ -71,3 +71,17 @@ body {
 .paginacion button:hover {
 	background: #137c32;
 }
+
+img{
+	width: 80px;
+}
+
+@media (max-width: 768px) {
+	.contenedor{
+		width: 90%;
+
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+	}
+}
