@@ -16,6 +16,13 @@ const fragment = document.createDocumentFragment();
 // Cards peliculas
 const contenedorCards = document.getElementById("cards-dinamicas");
 const cardsTemplate = document.getElementById("template-cards");
+//Btn Theme
+const body = document.querySelector('body')
+const toggle = document.querySelector("#toggle")
+toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active')
+    body.classList.toggle('active')
+})
 
 let observador = new IntersectionObserver(
   (entradas) => {
@@ -59,7 +66,9 @@ const cargarPeliculas = async () => {
       clone.querySelector(".p").textContent = `Precio: $${precio}`;
 
       clone.querySelector(".btn-primary").dataset.precio = precio;
-      clone.querySelector(".btn-primary").dataset.img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
+      clone.querySelector(
+        ".btn-primary"
+      ).dataset.img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
       clone.querySelector(".btn-primary").dataset.name = item.title;
       clone.querySelector(".btn-primary").dataset.id = item.id;
       fragment.appendChild(clone);
@@ -105,7 +114,7 @@ const mostrarCarrito = () => {
     clone.querySelector(".list-group-item .badge").textContent = item.cantidad;
     clone.querySelector(".lead").textContent = item.name;
     clone.querySelector(".lead span").textContent = item.precio * item.cantidad;
-    clone.querySelector(".poster").src = item.img
+    clone.querySelector(".poster").src = item.img;
 
     clone.querySelector(".btn-success").dataset.id = item.id;
     clone.querySelector(".btn-danger").dataset.id = item.id;
@@ -158,29 +167,29 @@ const agregarBtn = (e) => {
 
 const pagarPelicula = () => {
   let today = new Date();
- 
+
   // obtener la fecha de hoy en formato `MM/DD/YYYY`
-  let now = today.toLocaleDateString('es-AR');
+  let now = today.toLocaleDateString("es-AR");
   contenedorRecibo.textContent = "";
   const total = Carrito.reduce((acc, current) => {
     return acc + current.cantidad * current.precio;
   }, 0);
 
-  const cantidad = Carrito.reduce((acc, current)=>{
-    return acc + current.cantidad
-  }, 0)
+  const cantidad = Carrito.reduce((acc, current) => {
+    return acc + current.cantidad;
+  }, 0);
 
   const clone = templateRecibo.content.cloneNode(true);
-  clone.querySelector('#purchasePrice').textContent = total
-  clone.querySelector('#purchaseDate').textContent = now
-  const itemContainer = clone.querySelector('#purchaseItems');
-  Carrito.forEach((item)=>{
-    const listItem = document.createElement('li');
+  clone.querySelector("#purchasePrice").textContent = total;
+  clone.querySelector("#purchaseDate").textContent = now;
+  const itemContainer = clone.querySelector("#purchaseItems");
+  Carrito.forEach((item) => {
+    const listItem = document.createElement("li");
     listItem.textContent = item.name;
     itemContainer.appendChild(listItem);
   });
-  clone.querySelector('#purchaseQuantity').textContent = cantidad
-  contenedorRecibo.appendChild(clone)
+  clone.querySelector("#purchaseQuantity").textContent = cantidad;
+  contenedorRecibo.appendChild(clone);
 };
 
 //Delegacion de Eventos
