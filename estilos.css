@@ -52,6 +52,28 @@ body.active{
 				inset 0 4px 4px rgba(255, 255, 255, 1),
 				inset 0 -4px 4px rgba(255, 255, 255, 1);
 }
+
+.bi-brightness-high-fill{
+    display: flex;
+    font-size: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	margin-top: 7px;
+	margin-left: 3px;
+}
+
+.bi-moon-stars-fill{
+	display: flex;
+    font-size: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	margin-top: 7px;
+	margin-left: 3px;
+	color: #fff;
+}
+
 .contenedor {
 	width: 90%;
 	max-width: 1100px;
@@ -80,38 +102,6 @@ body.active{
 	width: 100%;
 	min-height: 200px;
 	margin-bottom: 10px;
-}
-
-.paginacion {
-	position: fixed;
-	bottom: 0;
-	background: #100a1f;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	gap: 20px;
-	padding: 10px;
-}
-
-.paginacion button {
-	cursor: pointer;
-	border: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	height: 50px;
-	width: 200px;
-	background: #241744;
-	color: #fff;
-	border-radius: 100px;
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 600;
-	transition: .3s ease all;
-}
-
-.paginacion button:hover {
-	background: #137c32;
 }
 
 img{

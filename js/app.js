@@ -1,10 +1,4 @@
-// Variables a utilizar
-let pagina = 1;
-let peliculas = "";
-let ultimaPelicula;
-let Carrito = [];
-
-// Elementos/etiquetas del dom a utilizar en el proyecto
+// etiquetas del dom a utilizar en el proyecto
 const spinner = document.getElementById("spinner");
 const carritoTemplate = document.querySelector("#template");
 const templateFooter = document.querySelector("#templateFooter");
@@ -13,16 +7,17 @@ const contenedorRecibo = document.querySelector("#recibo");
 const carritoContenedor = document.querySelector("#carritoContenedor");
 const contenedorFooter = document.querySelector("#footer");
 const fragment = document.createDocumentFragment();
+
 // Cards peliculas
 const contenedorCards = document.getElementById("cards-dinamicas");
 const cardsTemplate = document.getElementById("template-cards");
-//Btn Theme
-const body = document.querySelector('body')
-const toggle = document.querySelector("#toggle")
-toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active')
-    body.classList.toggle('active')
-})
+
+// Variables a utilizar
+let pagina = 1;
+let peliculas = "";
+let ultimaPelicula;
+let Carrito = [];
+let cantidadProducto = 1
 
 let observador = new IntersectionObserver(
   (entradas) => {
@@ -47,6 +42,7 @@ const loading = (estado) => {
     spinner.classList.add("d-none");
   }
 };
+
 const cargarPeliculas = async () => {
   try {
     loading(true);
@@ -91,6 +87,7 @@ const cargarPeliculas = async () => {
     loading(false);
   }
 };
+
 cargarPeliculas();
 
 const agregarPeliculaCarrito = (e) => {
@@ -147,6 +144,7 @@ const quitarBtn = (e) => {
     if (e.target.dataset.id === item.id) {
       if (item.cantidad > 0) {
         item.cantidad--;
+        cantidadProducto--
       }
       if (item.cantidad === 0) return;
       return item;
@@ -160,6 +158,7 @@ const quitarBtn = (e) => {
 const agregarBtn = (e) => {
   Carrito.map((item) => {
     e.target.dataset.id === item.id ? item.cantidad++ : item;
+    cantidadProducto++
   });
 
   mostrarCarrito();

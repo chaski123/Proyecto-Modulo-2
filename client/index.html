@@ -32,7 +32,7 @@
       <div class="container-fluid">
         <a class="navbar-brand text-white">Movies4Us</a>
         <div id="toggle" class="toggle">
-          <i class="indicator"></i>
+          <i class="indicator"><i class="bi bi-moon-stars-fill" id="moon"></i><i class="bi bi-brightness-high-fill d-none" id="sun"></i></i>
         </div>
       </div>
     </nav>
@@ -68,7 +68,7 @@
 
     <!-- Template Peliculas-carrito -->
     <template id="template">
-      <div class="container m-auto p-2">
+      <div class="container m-auto p-2 bg-dark">
         <li class="list-group-item text-uppercase bg-primary text-white">
           <span id="quantity" class="badge bg-dark rounded-pill align-middle">10</span>
           <span id="product-description" class="lead align-middle">Pelicula</span>
@@ -81,10 +81,10 @@
             <p id="unit-price" class="lead mb-0" style="margin-right: 550px;"> Precio: $<span>600</span></p>
           </div>
           <div>
-            <button class="btn btn-sm btn-success" data-id="pelicula">
+            <button class="btn btn-success" data-id="pelicula">
               Agregar
             </button>
-            <button class="btn btn-sm btn-danger" data-id="pelicula">
+            <button class="btn btn-danger" data-id="pelicula">
               Quitar
             </button>
           </div>
@@ -186,5 +186,6 @@
     </footer>
 
     <script src="../js/app.js"></script>
+    <script src="../js/ButtonTheme.js"></script>
   </body>
 </html>
