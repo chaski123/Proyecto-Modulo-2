@@ -38,25 +38,21 @@
     </nav>
 
     <!-- cargando animacion -->
-    <div class="d-flex align-items-center text-primary m-4 d-none" id="spinner">
+    <div class="spinner" role="status" id="spinner">
       <strong>Loading...</strong>
-      <div
-        class="spinner-border ms-auto"
-        role="status"
-        aria-hidden="true"
-      ></div>
     </div>
 
     <div id="cards-dinamicas" class="contenedor">
       <!-- contenedor peliculas -->
     </div>
+
     <!-- cards Peliculas -->
     <template id="template-cards">
       <div class="card text-bg-dark pelicula mt-5">
         <img class="poster" src="..." />
         <h3 class="titulo"></h3>
         <p class="p"></p>
-        <button class="btn btn-primary" data-precio="" data-name="" data-id="" data-img="">
+        <button class="btn btn-primary comprar-btn" data-precio="" data-name="" data-id="" data-img="">
           Comprar
         </button>
       </div>

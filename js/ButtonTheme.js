@@ -3,6 +3,7 @@ const body = document.querySelector('body')
 const toggle = document.querySelector("#toggle")
 const Icon = document.querySelector("#moon") 
 const Icon2 = document.querySelector("#sun") 
+
 toggle.addEventListener('click', () => {
     body.classList.toggle('active')
     if(toggle.classList.toggle('active')){
@@ -14,3 +15,4 @@ toggle.addEventListener('click', () => {
         Icon2.classList.add('d-none')
     }
 })
+  

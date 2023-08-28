@@ -1,5 +1,5 @@
 // etiquetas del dom a utilizar en el proyecto
-const spinner = document.getElementById("spinner");
+const spinner = document.getElementById('spinner');
 const carritoTemplate = document.querySelector("#template");
 const templateFooter = document.querySelector("#templateFooter");
 const templateRecibo = document.querySelector("#templateRecibo");
@@ -20,17 +20,16 @@ let cantidadProducto = 1
 
 
 // Funcion spinner
-const loading = (estado) => {
-  if (estado) {
-    spinner.classList.remove("d-none");
-  } else {
-    spinner.classList.add("d-none");
-  }
-};
+function showSpinner() {
+  spinner.style.display = 'block';
+}
+function hideSpinner() {
+  spinner.style.display = 'none';
+}
 
 const cargarPeliculas = async () => {
   try {
-    loading(true);
+    showSpinner();
     const respuesta = await fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
     );
@@ -58,10 +57,14 @@ const cargarPeliculas = async () => {
   } catch (error) {
     console.log(error);
   } finally {
-    loading(false);
+    hideSpinner()
   }
-}; cargarPeliculas();
+};
 
+setTimeout(()=>{
+  cargarPeliculas();
+}, 2000)
+ 
 const agregarPeliculaCarrito = (e) => {
   const pelicula = {
     id: e.target.dataset.id,
