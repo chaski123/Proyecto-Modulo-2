@@ -13,5 +13,4 @@ toggle.addEventListener('click', () => {
         Icon.classList.remove('d-none')
         Icon2.classList.add('d-none')
     }
-    
 })

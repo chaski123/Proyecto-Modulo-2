@@ -60,9 +60,7 @@ const cargarPeliculas = async () => {
   } finally {
     loading(false);
   }
-};
-
-cargarPeliculas();
+}; cargarPeliculas();
 
 const agregarPeliculaCarrito = (e) => {
   const pelicula = {
