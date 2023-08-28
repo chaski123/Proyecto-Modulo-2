@@ -110,16 +110,15 @@
 
     <!-- Template recibo -->
     <template id="templateRecibo">
-      <div class="receipt card text-bg-dark m-4 p-3">
+      <div class="container receipt card text-bg-dark m-auto mb-5 p-3">
         <h1 class="card-title">Recibo de Compra</h1>
-        <div class="movie-title" id="movieTitle"></div>
         <div class="purchase-details" id="purchaseDetails">
             <p>Fecha: <span id="purchaseDate"></span></p>
             <div id="purchaseItems">
               <h3>Titulos</h3>
             </div>
             <br>
-            <p>Precio: $<span id="purchasePrice"></span></p>
+            <p class="text-primary fw-bold">Precio: $<span id="purchasePrice"></span></p>
             <p>Cantidad de Peliculas: <span id="purchaseQuantity"></span></p>
         </div>
         <hr>

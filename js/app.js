@@ -15,24 +15,9 @@ const cardsTemplate = document.getElementById("template-cards");
 // Variables a utilizar
 let pagina = 1;
 let peliculas = "";
-let ultimaPelicula;
 let Carrito = [];
 let cantidadProducto = 1
 
-let observador = new IntersectionObserver(
-  (entradas) => {
-    entradas.forEach((entrada) => {
-      if (entrada.isIntersecting) {
-        pagina++;
-        cargarPeliculas();
-      }
-    });
-  },
-  {
-    rootMargin: "0px 0px 200px 0px",
-    threshold: 1.0,
-  }
-);
 
 // Funcion spinner
 const loading = (estado) => {
@@ -70,17 +55,6 @@ const cargarPeliculas = async () => {
       fragment.appendChild(clone);
     });
     contenedorCards.appendChild(fragment);
-    // Limite de paginas que quiero mostrar
-    if (pagina < 1) {
-      if (ultimaPelicula) {
-        observador.unobserve(ultimaPelicula);
-      }
-      const peliculasEnPantalla = document.querySelectorAll(
-        ".contenedor .pelicula"
-      );
-      ultimaPelicula = peliculasEnPantalla[peliculasEnPantalla.length - 1];
-      observador.observe(ultimaPelicula);
-    }
   } catch (error) {
     console.log(error);
   } finally {
@@ -144,7 +118,6 @@ const quitarBtn = (e) => {
     if (e.target.dataset.id === item.id) {
       if (item.cantidad > 0) {
         item.cantidad--;
-        cantidadProducto--
       }
       if (item.cantidad === 0) return;
       return item;
@@ -158,14 +131,13 @@ const quitarBtn = (e) => {
 const agregarBtn = (e) => {
   Carrito.map((item) => {
     e.target.dataset.id === item.id ? item.cantidad++ : item;
-    cantidadProducto++
   });
-
   mostrarCarrito();
 };
 
 const pagarPelicula = () => {
   let today = new Date();
+  const cantidadPorPelicula = {};
 
   // obtener la fecha de hoy en formato `MM/DD/YYYY`
   let now = today.toLocaleDateString("es-AR");
@@ -178,13 +150,20 @@ const pagarPelicula = () => {
     return acc + current.cantidad;
   }, 0);
 
+    // Calcular la cantidad total de cada película
+    Carrito.forEach(pelicula => {
+      !cantidadPorPelicula[pelicula.id] // verifica si la propiedad pelicula.id no existe en el objeto,  En otras palabras, verifica si es la primera vez que se encuentra esta película en el bucle.
+      ? cantidadPorPelicula[pelicula.id] = pelicula.cantidad 
+      : cantidadPorPelicula[pelicula.id] += pelicula.cantidad;
+    });
+
   const clone = templateRecibo.content.cloneNode(true);
   clone.querySelector("#purchasePrice").textContent = total;
   clone.querySelector("#purchaseDate").textContent = now;
   const itemContainer = clone.querySelector("#purchaseItems");
   Carrito.forEach((item) => {
     const listItem = document.createElement("li");
-    listItem.textContent = item.name;
+    listItem.textContent = item.name + ' x' +cantidadPorPelicula[item.id];
     itemContainer.appendChild(listItem);
   });
   clone.querySelector("#purchaseQuantity").textContent = cantidad;
