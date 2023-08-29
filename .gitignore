@@ -1,4 +1,0 @@
-Excluir archivos generados durante la compilación
-build/
-dist/
-node_modules/
