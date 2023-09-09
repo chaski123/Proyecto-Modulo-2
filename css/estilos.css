@@ -1,11 +1,12 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-style: normal;
 	box-sizing: border-box;
 }
 
 body {
-	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
 	background: #000;
 }
 
@@ -92,6 +93,7 @@ body.active{
 .contenedor .pelicula .titulo {
 	font-size: 16px;
 	font-weight: 600;
+	padding: 5px;
 }
 
 .contenedor .pelicula .titulo .p{
@@ -124,7 +126,55 @@ img{
 	position: absolute;
 	top: 0; bottom: 0; left: 0; right: 0;
   }
-  
+
+  .conteiner{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px;
+  }
+
+  .rate{
+	margin: 0 5px;
+  }
+
+  .overview{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -20;
+	background-color: #fff;
+	padding: 1rem;
+	max-height: 70%;
+	color: #000;
+	transform: translateY(-120%);
+	transition: transform 0.3s ease-in;
+	overflow: scroll;
+  }
+
+  .card{
+	position: relative;
+	overflow: hidden;
+  }
+
+  .card:hover .overview{
+	transform: translateY(0);
+  }
+
+
+  .bi-star-fill{
+	color: gold;
+  }
+
+  .bi-film{
+	color: #3498db;
+  }
+
+.p{
+	padding: 0;
+	margin: 0;
+}
   @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }

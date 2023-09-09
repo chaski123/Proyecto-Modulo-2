@@ -23,6 +23,7 @@ let cantidadProducto = 1
 function showSpinner() {
   spinner.style.display = 'block';
 }
+
 function hideSpinner() {
   spinner.style.display = 'none';
 }
@@ -35,6 +36,7 @@ const cargarPeliculas = async () => {
     );
     // Si la respuesta es correcta
     const datos = await respuesta.json();
+    console.log(datos)
     datos.results.forEach((item) => {
       const max = 1000;
       let precio = Math.floor(Math.random() * max);
@@ -44,6 +46,9 @@ const cargarPeliculas = async () => {
       ).src = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
       clone.querySelector(".titulo").textContent = item.title;
       clone.querySelector(".p").textContent = `Precio: $${precio}`;
+      clone.querySelector(".rate").textContent = item.vote_average
+      clone.querySelector(".overview .titulo").textContent = item.title;
+      clone.querySelector(".overview .text").textContent = item.overview;
 
       clone.querySelector(".btn-primary").dataset.precio = precio;
       clone.querySelector(
