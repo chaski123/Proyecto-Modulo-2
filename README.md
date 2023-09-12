@@ -2,7 +2,7 @@
 En este Proyecto vamos a realizar un catalogo de una pagina donde contenga peliculas y se puedan comprar.
 ## Autores
 - [@JackShaw32](https://www.github.com/JackShaw32)
-- [@ochaski123](https://www.github.com/chaski123)
+- [@chaski123](https://www.github.com/chaski123)
 ## Características
 - Modo Light/dark
 - Responsivo
