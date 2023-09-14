@@ -33,3 +33,11 @@ const moveToLeft = () => {
     slider.style.transition = "all ease .6s"
 
 }
+
+setInterval(() => {
+    moveToRight()
+}, 5000);
+
+let operacion = 0
+let counter = 0
+let widthImg = 100 / sliderSection.length
