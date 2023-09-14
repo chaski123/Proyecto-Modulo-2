@@ -36,7 +36,6 @@ const cargarPeliculas = async () => {
     );
     // Si la respuesta es correcta
     const datos = await respuesta.json();
-    console.log(datos)
     datos.results.forEach((item) => {
       const max = 1000;
       let precio = Math.floor(Math.random() * max);
@@ -135,9 +134,7 @@ const quitarBtn = (e) => {
 };
 
 const agregarBtn = (e) => {
-  Carrito.map((item) => {
-    e.target.dataset.id === item.id ? item.cantidad++ : item;
-  });
+  Carrito.map((item) => e.target.dataset.id === item.id ? item.cantidad++ : item);
   mostrarCarrito();
 };
 
