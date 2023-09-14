@@ -21,6 +21,4 @@ Este Proyecto es usado por la siguiente empresa:
 Este Proyecto fue creado con Html, Css y JavaScript.
 ## Despliegue
 Para ejecutar este Proyecto use:
-```bash
-  npm run deploy
-```
+https://moviess4us.netlify.app/
