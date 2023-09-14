@@ -34,9 +34,12 @@ const moveToLeft = () => {
 
 }
 
+btnLeft.addEventListener("click", moveToLeft)
+btnRight.addEventListener("click", moveToRight)
+
 setInterval(() => {
     moveToRight()
-}, 5000);
+}, 4500);
 
 let operacion = 0
 let counter = 0
