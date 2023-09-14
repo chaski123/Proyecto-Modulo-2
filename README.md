@@ -14,7 +14,7 @@ En este Proyecto vamos a realizar un catalogo de una pagina donde contenga pelic
 - Slider de Imagenes
 - Recibo de Compras
 ## Usado por:
-Este Proyecto es usado por las siguiente empresa:
+Este Proyecto es usado por la siguiente empresa:
 - devschool_academia
 - https://devschool.com.ar/
 ## Comentarios
